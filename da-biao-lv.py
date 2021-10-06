@@ -22,12 +22,8 @@ for row_sc in ws_sc.iter_rows(min_row=3,max_col=4,values_only=True):
             count += row_dl[4]
     # 计算该项目达标率
     rate = str(round(count/row_sc[3]*100,2))+'%'
-    # 将生产计划表复制的内容转换为列表
-    list_row=list(row_sc)
-    # 再列表末尾添加实际产量
-    list_row.append(count)
-    # 在列表末尾添加达标率
-    list_row.append(rate)
+    # 将元组相加形成所需要的新元组
+    list_row = row_sc + (count,rate)
     # 将列表写入模版中
     ws_re.append(list_row)
 # 另存写入内容文件为新文件
