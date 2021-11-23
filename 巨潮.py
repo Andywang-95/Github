@@ -52,10 +52,7 @@ def select(target_dict):
         if n != 'n' and int(n) < 4:
             choice += category_dict[n]
             continue
-        
         break   
-    
-    print(choice)
     date1 = input('請依照格式輸入查詢起始日期（2021-01-01）：\n')
     date2 = input('請依照格式輸入查詢截至日期（2021-01-01）：\n')
     num = 1
@@ -84,28 +81,26 @@ def select(target_dict):
             else:
                 return pdf_list
         for i in res.json()['announcements']:
-            pdf_list.append([i['announcementTitle'],i['adjunctUrl']])
+            pdf_list.append([i['announcementTitle']+'.'+i['adjunctType'],'http://static.cninfo.com.cn/'+i['adjunctUrl']])
         num += 1
 
-        
-
-
-
-
-
-# category_ndbg_szsh;category_bndbg_szsh;category_rcjy_szsh;
 # # 功能三
-# def download():
+def download(list_pdf):
+    for pdf in list_pdf:
+        res_pdf = requests.get(pdf[1])
+        d_pdf = res_pdf.content
+        with open(pdf[0],'wb') as f:
+            f.write(d_pdf)
+            print('已完成《{}》的下载')
 
-# # 功能整合
-# def main():
-#     # 搜索股票，获取股票id信息等
+# 功能整合
+def main():
+    # 搜索股票，获取股票id信息等
+    information = search()
+    # 输入各个参数，筛选报告
+    final_list = select(information)
+    # 下载报告
+    finish= download(final_list)
+main()
 
-#     # 输入各个参数，筛选报告
 
-#     # 下载报告
-
-# main()
-i = search()
-t = select(i)
-print(t)
