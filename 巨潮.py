@@ -23,7 +23,7 @@ def search():
         print('【0】 重新搜索關鍵字...\n')
         while True:
             choice = int(input('請輸入要查看的序號： '))
-            if choice in range(1,len(search_dict)):
+            if choice in range(1,len(search_dict)+1):
                 print('\n請稍後，正在跳轉至【{}】\n'.format(search_dict[choice]['zwjc']))
                 return search_dict[choice]
             elif choice == 0:
@@ -91,7 +91,7 @@ def download(list_pdf):
         d_pdf = res_pdf.content
         with open(pdf[0],'wb') as f:
             f.write(d_pdf)
-            print('已完成《{}》的下载')
+            print('已完成《{}》的下载'.format(pdf[0].split('.')[0]))
 
 # 功能整合
 def main():
